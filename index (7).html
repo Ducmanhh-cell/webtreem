@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Xem Phim Hoạt Hình Trực Tuyến Cho Trẻ Em</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- 1. Header (Cố định khi cuộn trang) -->
+    <div class="header">
+        <div class="logo">
+            <img src="https://via.placeholder.com/120x40/ff7675/ffffff?text=KIDS+TV" alt="Logo Web Hoạt Hình">
+            <span>HOẠT HÌNH KIDS</span>
+        </div>
+        <div class="search-box">
+            <input type="text" placeholder="Tìm kiếm phim hoạt hình...">
+            <button>Tìm kiếm</button>
+        </div>
+    </div>
+
+    <!-- 2. Head-link (Thanh điều hướng) -->
+    <div class="head-link">
+        <a href="#" class="nav-item active">Trang chủ</a>
+        <a href="#" class="nav-item">Phim Mới Cập Nhật</a>
+        <a href="#" class="nav-item">Xem Nhiều Nhất</a>
+        <a href="#" class="nav-item">Phim Audio Việt</a>
+        <a href="#" class="nav-item">Liên Hệ</a>
+    </div>
+
+    <!-- 3. Content (Main Area) -->
+    <div class="main-container">
+        <!-- Left Content: Menu danh sách video -->
+        <div class="left-content">
+            <h3>Danh Sách Phim</h3>
+            <ul class="video-list">
+                <li class="video-item active" onclick="playVideo('local', 'https://www.w3schools.com/html/mov_bbb.mp4', 'Big Buck Bunny (Phim Thuyết Minh HD)')">
+                    🎬 Big Buck Bunny (Dùng thẻ &lt;video&gt;)
+                </li>
+                <li class="video-item" onclick="playVideo('youtube', 'https://www.youtube.com/embed/dQw4w9WgXcQ', 'Doraemon Tập Đặc Biệt (Nhúng YouTube)')">
+                    ▶️ Doraemon Tập Đặc Biệt (Dùng &lt;iframe&gt;)
+                </li>
+                <li class="video-item" onclick="playVideo('youtube', 'https://www.youtube.com/embed/L_LUpnjgPso', 'Truyện Cổ Tích Thỏ Và Rùa (Audio Việt)')">
+                    ▶️ Cổ Tích Thỏ & Rùa (Dùng &lt;iframe&gt;)
+                </li>
+            </ul>
+        </div>
+
+        <!-- Right Content: Nội dung video được chọn -->
+        <div class="right-content">
+            <h2 id="video-title">Big Buck Bunny (Phim Thuyết Minh HD)</h2>
+            
+            <div class="player-wrapper">
+                <!-- Video thẻ HTML5 <video> -->
+                <video id="html5-player" controls style="width: 100%; max-height: 450px;">
+                    <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                    Trình duyệt của bạn không hỗ trợ thẻ video.
+                </video>
+                
+                <!-- Video nhúng YouTube <iframe> -->
+                <iframe id="youtube-player" style="display: none; width: 100%; height: 450px; border: none;" allowfullscreen></iframe>
+            </div>
+
+            <div class="video-info">
+                <h4>Mô tả nội dung:</h4>
+                <p>Website tập hợp các phim hoạt hình chất lượng cao Full HD 1080p, audio thuyết minh tiếng Việt chuẩn, không chứa quảng cáo bạo lực hay độc hại, an toàn tuyệt đối cho trẻ nhỏ.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. Footer -->
+    <div class="footer">
+        <p>&copy; 2026 Website Xem Phim Hoạt Hình Trẻ Em. Bản quyền thuộc về HoatHinhKids.</p>
+    </div>
+
+    <!-- Script chuyển đổi video linh hoạt khi nhấp menu trái -->
+    <script>
+        function playVideo(type, src, title) {
+            document.getElementById('video-title').innerText = title;
+            const html5Player = document.getElementById('html5-player');
+            const youtubePlayer = document.getElementById('youtube-player');
+
+            if (type === 'local') {
+                youtubePlayer.style.display = 'none';
+                youtubePlayer.src = '';
+                
+                html5Player.style.display = 'block';
+                html5Player.src = src;
+                html5Player.play();
+            } else if (type === 'youtube') {
+                html5Player.style.display = 'none';
+                html5Player.pause();
+
+                youtubePlayer.style.display = 'block';
+                youtubePlayer.src = src + '?autoplay=1';
+            }
+
+            // Đổi trạng thái active ở menu danh sách
+            const items = document.querySelectorAll('.video-item');
+            items.forEach(item => item.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+        }
+    </script>
+</body>
+</html>
